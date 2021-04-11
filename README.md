@@ -13,4 +13,4 @@ posteriormente debe ir a la carpeta del proyecto (database) y tomar la base de d
 para lo cual debe tener instalado postgresql y pg_admin una vez pueda importarla correctamente tal cual esta en este proyecto debe ingresar a ella y comprobar que la tabla de usuarios se inicio correctamente y carga registros de lo contrario verificar que sus dependecias de POSTGRESQL se encuentre correctamente instaladas
 una vez instaladas estas dependencias ejecutar el archivo app.py e ir a la direccion local http://127.0.0.1:5000/  
 y podra visualizar una interfaz como la siguiente 
- ![alt text](https://github.com/sebas1017/APP-REGISTRO-USUARIOS-/blob/main/app.png?raw=true)
+ ![alt text](https://github.com/sebas1017/APP-REGISTRO-USUARIOS-/blob/main/app.PNG?raw=true)
