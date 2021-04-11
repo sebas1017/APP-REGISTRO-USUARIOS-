@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+ 
+{% block title %} Home {% endblock %}
+  
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col md-12">
+            <div class="jumbotron p-3">
+                <h2>App de registro de  <b>clientes </b>  <button type="button"  class="btn btn-success float-right"
+                data-toggle="modal" data-target="#mymodal">Agregar Cliente</button> </h2>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                 
+    {% for message in messages %}
+                <div class="alert alert-success alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                        <span aria-hidden="true">x</span>
+                    </button>
+                {{message}}
+                </div>
+                {% endfor %}
+     
+                {% endif %}
+                {% endwith %}
+  
+                <table class="table table-hover table-striped">
+                    <tr>
+                        <th>cedula</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>direccion</th>
+                        <th>Action</th>
+                    </tr>
+                   {% for row in employees %}
+                    <tr>
+                        <td>{{row.cedula}}</td>
+                        <td>{{row.nombre}}</td>
+                        <td>{{row.email}}</td>
+                        <td>{{row.direccion}}</td>
+                        <td>
+                            <a href="/update/{{row.cedula}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.cedula}}">Edit</a>
+                            <a href="/delete/{{row.cedula}}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure To Delete ?')">Delete</a>
+                        </td>
+                    </tr>
+     <!-- Modal Edit Employee-->
+     <div id="modaledit{{row.cedula}}" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+        <div class="modal-content">
+       <div class="modal-header"><h4 class="modal-title">Update Information</h4></div>
+        <div class="modal-body">
+        <form action="{{url_for('update')}}" method="POST">
+         <div class="form-group">
+          <label>Nombre:</label>
+          <input type="text" class="form-control" name="nombre" value="{{row.nombre}}">
+         </div>
+
+     <div class="form-group">
+          <label>Cedula:</label>
+      <input type="text" class="form-control" name="cedula" value="{{row.cedula}}">
+         </div>
+
+         <div class="form-group">
+          <label>Email:</label>
+          <input type="text" class="form-control" name="email" value="{{row.email}}">
+         </div>
+         <div class="form-group">
+          <label>Phone:</label>
+          <input type="text" class="form-control" name="direccion" value="{{row.direccion}}">
+         </div>
+         <div class="form-group">
+          <button class="btn btn-primary" type="submit">Update</button>
+         </div>
+        </form>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      </div>
+     </div> 
+     {% endfor %}
+    </table>
+   </div>
+  
+  <!-- Modal Add Employee-->
+  <div id="mymodal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+     <div class="modal-content">
+    <div class="modal-header"><h4 class="modal-title">Add Employee</h4></div>
+    <div class="modal-body">
+     <form action="{{url_for('insert')}}" method="POST">
+
+  <div class="form-group">
+       <label>Cedula:</label>
+       <input type="text" class="form-control" name="cedula" required="1">
+      </div>
+
+
+      <div class="form-group">
+       <label>Nombre:</label>
+       <input type="text" class="form-control" name="nombre" required="1">
+      </div>
+      <div class="form-group">
+       <label>Email:</label>
+       <input type="email" class="form-control" name="email" required="1">
+      </div>
+      <div class="form-group">
+       <label>Direccion:</label>
+       <input type="text" class="form-control" name="direccion" required="1">
+      </div>
+      <div class="form-group">
+      <button class="btn btn-primary" type="submit">Add User</button>
+      </div>
+     </form>
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+   </div>
+   </div>
+  </div>
+   
+ </div>
+ </div>
+</div>
+
+ {% if message %}
+        <p>Note: {{ message }}</p>
+    {% endif %}
+    {% block content %}
+    {% endblock %}
+{% endblock %}
